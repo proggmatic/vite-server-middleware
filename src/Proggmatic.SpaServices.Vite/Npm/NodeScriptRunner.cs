@@ -1,6 +1,9 @@
+// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Npm/NodeScriptRunner.cs
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -12,8 +15,8 @@ using Proggmatic.SpaServices.Vite.Util;
 namespace Proggmatic.SpaServices.Vite.Npm;
 
 /// <summary>
-/// Executes the <c>script</c> entries defined in a <c>package.json</c> file, capturing any output written to stdio.
-/// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Npm/NodeScriptRunner.cs
+/// Executes the <c>script</c> entries defined in a <c>package.json</c> file,
+/// capturing any output written to stdio.
 /// </summary>
 internal sealed class NodeScriptRunner : IDisposable
 {
@@ -21,7 +24,7 @@ internal sealed class NodeScriptRunner : IDisposable
     public EventedStreamReader StdOut { get; }
     public EventedStreamReader StdErr { get; }
 
-    private static readonly Regex AnsiColorRegex = new("\x001b\\[[0-9;]*m", RegexOptions.None, TimeSpan.FromSeconds(1));
+    private static readonly Regex AnsiColorRegex = new Regex("\x001b\\[[0-9;]*m", RegexOptions.None, TimeSpan.FromSeconds(1));
 
     public NodeScriptRunner(string workingDirectory, string scriptName, string? arguments, IDictionary<string, string>? envVars, string pkgManagerCommand, DiagnosticSource diagnosticSource,
         CancellationToken applicationStoppingToken)
@@ -88,7 +91,8 @@ internal sealed class NodeScriptRunner : IDisposable
 
         if (diagnosticSource.IsEnabled("Microsoft.AspNetCore.NodeServices.Npm.NpmStarted"))
         {
-            diagnosticSource.Write(
+            WriteDiagnosticEvent(
+                diagnosticSource,
                 "Microsoft.AspNetCore.NodeServices.Npm.NpmStarted",
                 new
                 {
@@ -96,6 +100,11 @@ internal sealed class NodeScriptRunner : IDisposable
                     process = _npmProcess
                 });
         }
+
+        [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2026",
+            Justification = "The values being passed into Write have the commonly used properties being preserved with DynamicDependency.")]
+        static void WriteDiagnosticEvent<TValue>(DiagnosticSource diagnosticSource, string name, TValue value)
+            => diagnosticSource.Write(name, value);
     }
 
     public void AttachToLogger(ILogger logger)

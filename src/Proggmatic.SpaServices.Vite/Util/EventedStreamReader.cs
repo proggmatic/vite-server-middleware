@@ -1,7 +1,10 @@
+// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Util/EventedStreamReader.cs
+
 using System;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -10,14 +13,11 @@ namespace Proggmatic.SpaServices.Vite.Util;
 /// <summary>
 /// Wraps a <see cref="StreamReader"/> to expose an evented API, issuing notifications
 /// when the stream emits partial lines, completed lines, or finally closes.
-/// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Util/EventedStreamReader.cs
 /// </summary>
 internal sealed class EventedStreamReader
 {
     public delegate void OnReceivedChunkHandler(ArraySegment<char> chunk);
-
     public delegate void OnReceivedLineHandler(string line);
-
     public delegate void OnStreamClosedHandler();
 
     public event OnReceivedChunkHandler? OnReceivedChunk;
@@ -31,7 +31,7 @@ internal sealed class EventedStreamReader
     {
         _streamReader = streamReader ?? throw new ArgumentNullException(nameof(streamReader));
         _linesBuffer = new StringBuilder();
-        Task.Factory.StartNew(Run);
+        Task.Factory.StartNew(Run, CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskScheduler.Default);
     }
 
     public Task<Match> WaitForMatch(Regex regex)
@@ -93,7 +93,7 @@ internal sealed class EventedStreamReader
             OnChunk(new ArraySegment<char>(buf, 0, chunkLength));
 
             int lineBreakPos;
-            int startPos = 0;
+            var startPos = 0;
 
             // get all the newlines
             while ((lineBreakPos = Array.IndexOf(buf, '\n', startPos, chunkLength - startPos)) >= 0 && startPos < chunkLength)

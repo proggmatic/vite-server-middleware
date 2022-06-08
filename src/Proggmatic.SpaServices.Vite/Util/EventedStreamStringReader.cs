@@ -1,3 +1,5 @@
+// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Util/EventedStreamStringReader.cs
+
 using System;
 using System.Text;
 
@@ -5,15 +7,14 @@ using System.Text;
 namespace Proggmatic.SpaServices.Vite.Util;
 
 /// <summary>
-/// Captures the completed-line notifications from a <see cref="EventedStreamReader"/>, combining the data into a single <see cref="string"/>.
-/// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Util/EventedStreamStringReader.cs
+/// Captures the completed-line notifications from a <see cref="EventedStreamReader"/>,
+/// combining the data into a single <see cref="string"/>.
 /// </summary>
 internal sealed class EventedStreamStringReader : IDisposable
 {
     private readonly EventedStreamReader _eventedStreamReader;
     private readonly StringBuilder _stringBuilder = new();
     private bool _isDisposed;
-
 
     public EventedStreamStringReader(EventedStreamReader eventedStreamReader)
     {

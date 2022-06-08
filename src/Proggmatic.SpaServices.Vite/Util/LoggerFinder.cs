@@ -1,3 +1,5 @@
+// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Util/LoggerFinder.cs
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -6,9 +8,6 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Proggmatic.SpaServices.Vite.Util;
 
-/// <summary>
-/// Original: https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/Util/LoggerFinder.cs
-/// </summary>
 internal static class LoggerFinder
 {
     public static ILogger GetOrCreateLogger(
