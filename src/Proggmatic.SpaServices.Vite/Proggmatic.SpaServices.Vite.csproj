@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <AssemblyName>Proggmatic.SpaServices.Vite</AssemblyName>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
 
-    <Version>6.0.0</Version>
+    <Version>7.0.0</Version>
 
     <Title>Vite Server Middleware</Title>
     <Description>Vite middleware and helpers for building and serving single page applications on ASP.NET Core.</Description>
@@ -24,7 +24,7 @@
 
     <PackageTags>Vite SPA middleware server serve</PackageTags>
     <PackageReleaseNotes>
-      Updated to .NET 6.0.0
+      Updated to .NET 7.0.0
     </PackageReleaseNotes>
 
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
@@ -38,8 +38,12 @@
   </ItemGroup>
 
 
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
