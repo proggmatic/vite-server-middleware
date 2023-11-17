@@ -25,10 +25,7 @@ public static class ViteMiddlewareExtensions
         this ISpaBuilder spaBuilder,
         string npmScript = "dev")
     {
-        if (spaBuilder == null)
-        {
-            throw new ArgumentNullException(nameof(spaBuilder));
-        }
+        ArgumentNullException.ThrowIfNull(spaBuilder);
 
         var spaOptions = spaBuilder.Options;
 

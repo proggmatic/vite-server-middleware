@@ -78,7 +78,10 @@ internal static class ViteMiddleware
             portNumber = TcpPortFinder.FindAvailablePort();
         }
 
-        logger.LogInformation($"Starting Vite server on port {portNumber}...");
+        if (logger.IsEnabled(LogLevel.Information))
+        {
+            logger.LogInformation($"Starting Vite server on port {portNumber}...");
+        }
 
         var envVars = new Dictionary<string, string>
         {
