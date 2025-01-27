@@ -24,7 +24,7 @@ namespace Proggmatic.SpaServices.Vite;
 internal static class ViteMiddleware
 {
     private const string LOG_CATEGORY_NAME = "Microsoft.AspNetCore.SpaServices";
-    private const string CLI_SERVE_COMPLETION_REGEX = "running at";
+    private const string CLI_SERVE_COMPLETION_REGEX = "(ready in|running in|running at)";
     private static readonly TimeSpan RegexMatchTimeout = TimeSpan.FromSeconds(5); // This is a development-time only feature, so a very long timeout is fine
 
 
@@ -78,16 +78,18 @@ internal static class ViteMiddleware
             portNumber = TcpPortFinder.FindAvailablePort();
         }
 
+        // Set variables directly to script
+        if (!scriptName.Contains(" --port ", StringComparison.OrdinalIgnoreCase))
+        {
+            scriptName += $" --port {portNumber}";
+        }
+
         if (logger.IsEnabled(LogLevel.Information))
         {
             logger.LogInformation($"Starting Vite server on port {portNumber}...");
         }
 
-        var envVars = new Dictionary<string, string>
-        {
-            { "PORT", portNumber.ToString() },
-            { "BROWSER", "none" }, // We don't want Vite to open its own extra browser window pointing to the internal dev server port
-        };
+        var envVars = new Dictionary<string, string>(0);
         var scriptRunner = new NodeScriptRunner(
             sourcePath, scriptName, null, envVars, pkgManagerCommand, diagnosticSource, applicationStoppingToken);
         scriptRunner.AttachToLogger(logger);

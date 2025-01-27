@@ -64,7 +64,10 @@ internal sealed class EventedStreamReader
             }
         };
 
-        onStreamClosedHandler = () => { ResolveIfStillPending(() => tcs.SetException(new EndOfStreamException())); };
+        onStreamClosedHandler = () =>
+        {
+            ResolveIfStillPending(() => tcs.SetException(new EndOfStreamException()));
+        };
 
         OnReceivedLine += onReceivedLineHandler;
         OnStreamClosed += onStreamClosedHandler;

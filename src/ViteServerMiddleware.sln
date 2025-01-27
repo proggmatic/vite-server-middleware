@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteServerMiddleware", "Proggmatic.SpaServices.Vite\Proggmatic.SpaServices.Vite.csproj", "{5886D24B-58DD-4689-8CF6-37D009B294E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proggmatic.ViteAspNetExample", "examples\Proggmatic.ViteAspNetExample\Proggmatic.ViteAspNetExample.csproj", "{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{BC2A8BD3-9DC1-406A-A1AC-ECF5337ED798}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,20 @@ Global
 		{5886D24B-58DD-4689-8CF6-37D009B294E5}.Release|x64.Build.0 = Release|Any CPU
 		{5886D24B-58DD-4689-8CF6-37D009B294E5}.Release|x86.ActiveCfg = Release|Any CPU
 		{5886D24B-58DD-4689-8CF6-37D009B294E5}.Release|x86.Build.0 = Release|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Debug|x64.Build.0 = Debug|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Debug|x86.Build.0 = Debug|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Release|x64.ActiveCfg = Release|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Release|x64.Build.0 = Release|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Release|x86.ActiveCfg = Release|Any CPU
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1E0B9E41-B7A3-4EEA-9EB3-6C864B09A843} = {BC2A8BD3-9DC1-406A-A1AC-ECF5337ED798}
 	EndGlobalSection
 EndGlobal

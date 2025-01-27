@@ -49,8 +49,10 @@ internal sealed class NodeScriptRunner : IDisposable
 
         if (!string.IsNullOrEmpty(arguments))
         {
-            // Yarn doesn't require -- between script name and arguments, so if yarn is provided, skip --
-            if (!string.Equals(pkgManagerCommand, "yarn", StringComparison.OrdinalIgnoreCase))
+            // Pnpm and Yarn doesn't require -- between script name and arguments, so if yarn is provided, skip --
+            if (!string.Equals(pkgManagerCommand, "pnpm", StringComparison.OrdinalIgnoreCase)
+                || !string.Equals(pkgManagerCommand, "yarn", StringComparison.OrdinalIgnoreCase)
+               )
                 completeArguments += " --";
 
             completeArguments += $" {arguments}";
